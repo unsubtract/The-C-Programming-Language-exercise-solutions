@@ -10,7 +10,7 @@ int main(void)
     int wl[MAX_WORD_LENGTH] = {0};
     int cwl = 0;
 
-    while ((c = getchar())) {
+    while (c = getchar()) {
         if (c == ' ' || c == '\t' || c == EOF) {
             ++wl[cwl];
             cwl = 0;
