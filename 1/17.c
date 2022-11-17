@@ -4,8 +4,7 @@
 
 int getln(char line[], int maxline);
 
-/* find the longest input line, print its length
- * and as much of it as can fit in the buffer */
+/* print lines longer than 80 characters */
 int main(void)
 {
     int len = 0;
