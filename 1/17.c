@@ -2,16 +2,18 @@
 #include <stdlib.h>
 #define MAXLINE 81
 
-int getln(char line[], size_t maxline);
+int getln(char line[], int maxline);
 
+/* find the longest input line, print its length
+ * and as much of it as can fit in the buffer */
 int main(void)
 {
     int len = 0;
     char line[MAXLINE] = {0};
     
-    while ((len = getln(line, MAXLINE)) > 0) {
+    while ((len = getln(line, MAXLINE)) >= 0) {
         if (len > 80) {
-            puts(line);
+            printf("\n%s, %i\n", line, len);
         }
     }
 
@@ -19,18 +21,22 @@ int main(void)
 }
 
 
-int getln(char s[], size_t lim)
+int getln(char s[], int lim)
 {
-    size_t i = 0;
+    int i = 0;
     int c = 0;
     
     while (++i < lim) s[i] = '\0'; /* clear buffer */
 
     /* continue to increment i to find total line length, but stop writing
      * to the buffer if we run out of space */
-    for (i = 0; (c = getchar())!=EOF && c != '\n'; ++i) {
+    for (i = 0; (c = getchar())!=EOF; ++i) {
         if (i < lim - 1 && c != '\n') s[i] = c;
+        else if (c == '\n') {
+            ++i;
+            break;
+        }
     }
-    if (c == EOF) return 0;
-    return (i ? i : 1); /* prevent exit on newline, newline isn't in string */
+
+    return i - 1;
 }
