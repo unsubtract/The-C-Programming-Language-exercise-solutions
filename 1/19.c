@@ -3,16 +3,17 @@
 #define MAXLINE 80
 
 int getln(char line[], int maxline);
-void reverse(char string[]);
+void reverse(const char source[], char dest[]);
 
 /* reverse each line from input */
 int main(void)
 {
     char line[MAXLINE] = {0};
+    char rev[MAXLINE] = {0};
     
     while (getln(line, MAXLINE) >= 0) {
-        reverse(line);
-        puts(line);
+        reverse(line, rev);
+        puts(rev);
     }
 
     return EXIT_SUCCESS;
@@ -21,8 +22,7 @@ int main(void)
 
 int getln(char s[], int lim)
 {
-    int i = 0;
-    int c = 0;
+    int i = 0, c;
     
     while (++i < lim) s[i] = '\0'; /* clear buffer */
 
@@ -39,19 +39,14 @@ int getln(char s[], int lim)
     return i - 1;
 }
 
-void reverse(char s[])
+void reverse(const char source[], char dest[])
 {
-    int i = 0;
-    int len = 0;
+    int i = 0, len = 0;
 
-    while (s[len]) ++len;
-    char *tmp = malloc(len + 1);
+    while (source[++len]); /* string length */
 
-    while ((tmp[i] = s[i]) != 0) ++i;
-    
-    for (i = 0; i < len; ++i) {
-        s[len - 1 - i] = tmp[i];
-    }
-    free(tmp);
+    dest[len] = '\0';
+    for (i = 0; i < len; ++i) dest[i] = source[len - 1 - i];
+
     return;
 }
